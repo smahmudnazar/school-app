@@ -53,7 +53,7 @@ public class BookService {
         file.setSize(bookDTO.getFile().getSize());
         file.setBytes(bookDTO.getFile().getBytes());
 
-        book.setFile(img);
+        book.setFile(file);
 
         book.setLanguage(byLanguageEnum.get());
         book.setGroup(byGroup.get());
@@ -64,6 +64,7 @@ public class BookService {
     }
 
 
+    @SneakyThrows
     public ApiResponse edit(Integer id, BookDTO bookDTO) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isEmpty()) return new ApiResponse("Not found",false);
@@ -72,7 +73,6 @@ public class BookService {
         book.setAuthors(bookDTO.getAuthors());
         book.setDescription(bookDTO.getDescription());
         book.setName(bookDTO.getName());
-
 
         Optional<Group> byGroup = groupRepository.findById(bookDTO.getClass_id());
         if (byGroup.isEmpty()) {
@@ -83,6 +83,22 @@ public class BookService {
         if (byLanguageEnum.isEmpty()) {
             return new ApiResponse("Language not found",false);
         }
+
+        Attachment img=new Attachment();
+        img.setName(bookDTO.getImg().getOriginalFilename());
+        img.setContentType(bookDTO.getImg().getContentType());
+        img.setSize(bookDTO.getImg().getSize());
+        img.setBytes(bookDTO.getImg().getBytes());
+
+        book.setImg(img);
+
+        Attachment file=new Attachment();
+        file.setName(bookDTO.getFile().getOriginalFilename());
+        file.setContentType(bookDTO.getFile().getContentType());
+        file.setSize(bookDTO.getFile().getSize());
+        file.setBytes(bookDTO.getFile().getBytes());
+
+        book.setFile(file);
 
         book.setLanguage(byLanguageEnum.get());
         book.setGroup(byGroup.get());
