@@ -57,7 +57,7 @@ public class BookController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody BookDTO book){
+    public ResponseEntity<?> add(@ModelAttribute BookDTO book){
         ApiResponse apiResponse = bookService.save(book);
         return ResponseEntity.status(apiResponse.isSuccess()?200:400).body(apiResponse);
     }

@@ -27,5 +27,6 @@ public class Attachment {
     private String name;
     private long size;
     private String contentType;
+    private byte[] bytes;
 
 }

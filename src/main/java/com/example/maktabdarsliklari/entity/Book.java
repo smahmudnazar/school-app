@@ -32,6 +32,12 @@ public class Book {
 
     private boolean active=true;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Attachment img;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Attachment file;
+
     public Book(String name, Language language, Group group, String description, String authors) {
         this.name = name;
         this.language = language;
